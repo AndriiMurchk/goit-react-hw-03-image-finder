@@ -64,9 +64,7 @@ class App extends Component {
             this.scroll();
           }
         })
-      /*
-      ? Ця колбек функція для скролу має стояти саме в методі this.setState, щоб як зміниться стейт =відбувалась прокрутка. Якщо винести цю функцію окремо, то ефект скролу обламаний. Напевно, через асинхронність.
-      */
+     
     } catch (error) {
       toast.error(`Something went wrong..${error?.message}`)
       this.setState({ error, status: 'rejected' })
