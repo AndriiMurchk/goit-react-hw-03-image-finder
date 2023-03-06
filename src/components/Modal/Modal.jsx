@@ -15,14 +15,23 @@ export default class Modal extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.handlerCloseModal);
+    window.removeEventListener('keydown', this.handlerCloseModalWindow);
   }
 
-  handlerCloseModal = (e) => {
+  handlerCloseModalWindow = (e) => {
     const isEscBtn = e.code === "Escape";
+    
+    if (isEscBtn) {
+      this.props.onCloseModal()
+    }
+  }
+
+
+  handlerCloseModalOverlay = (e) => {
+    
     const isBackdrop = e.target === e.currentTarget;
 
-    if (isEscBtn || isBackdrop) {
+    if (isBackdrop) {
       this.props.onCloseModal()
     }
   }
@@ -30,7 +39,7 @@ export default class Modal extends Component {
   render() {
 
     return createPortal(
-      <StyledOverlay onClick={this.handlerCloseModal}>
+      <StyledOverlay onClick={this.handlerCloseModalOverlay}>
         <StyledModal >
           {this.props.children}
         </StyledModal>

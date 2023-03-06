@@ -45,26 +45,22 @@ class App extends Component {
 
     try {
       const { hits, totalHits } = await getImages(query, page)
+      
+      if (this.state.page !== 1) {
+        this.scroll();
+        }
 
       if (totalHits === 0) {
         toast.error(`Sorry, there are no images matching your search query. Please try again`)
-        return this.setState({
-          status: 'idle',
-          totalHits: 0,
-          page: 1,
-        })
+        
       }
 
       this.setState((prevState) => ({
         queryHits: [...prevState.queryHits, ...hits],
         totalHits,
-      })
-        , () => {
-          if (this.state.page !== 1) {
-            this.scroll();
-          }
-        })
-     
+      }));
+
+      
     } catch (error) {
       toast.error(`Something went wrong..${error?.message}`)
       this.setState({ error, status: 'rejected' })

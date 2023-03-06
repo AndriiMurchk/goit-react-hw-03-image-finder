@@ -7,7 +7,7 @@ import { StyledImageGalleryItem, StyledImageGalleryItemImg } from './ImageGaller
 export default class ImageGalleryItem extends Component {
 
   static propTypes = {
-    id: PropTypes.number.isRequired,
+    
     src: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired,
     srcOriginal: PropTypes.string.isRequired,
@@ -19,10 +19,10 @@ export default class ImageGalleryItem extends Component {
     currentImg: null,
   }
 
-  handlerCurrentImg = (id) => {
-    const currImg = this.props.images.find(el => el.id === id)
+  handlerCurrentImg = (src) => {
+    
     this.setState({
-      currentImg: currImg,
+      currentImg: src,
       isOpenModal: true,
     })
   }
@@ -34,17 +34,17 @@ export default class ImageGalleryItem extends Component {
   }
 
   render() {
-    const { id, src, alt, srcOriginal } = this.props;
+    const { src, alt, srcOriginal } = this.props;
 
     return (
       <StyledImageGalleryItem>
-        <StyledImageGalleryItemImg src={src} alt={alt} onClick={() => this.handlerCurrentImg(id)} />
+        <StyledImageGalleryItemImg src={src} alt={alt} onClick={() => this.handlerCurrentImg()} />
         {
           this.state.isOpenModal &&
           <Modal
             onCloseModal={this.onCloseModal}
           >
-            <img id={id} src={srcOriginal} alt={alt} width="1000" />
+            <img  src={srcOriginal} alt={alt} width="1000" />
           </Modal>
         }
       </StyledImageGalleryItem>
